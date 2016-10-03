@@ -14,6 +14,9 @@
 # Configure Using Gemfile
 # gem 'pg'
 #
+
+<% branch = `git symbolic-ref HEAD 2>/dev/null`.chomp.sub('refs/heads/', '') %>
+
 default: &default
   adapter: postgresql
   encoding: unicode
@@ -23,7 +26,7 @@ default: &default
 
 development:
   <<: *default
-  database: measurements-api_development
+  database: measurements-api_development_<%= branch %>
 
   # The specified database role being used to connect to postgres.
   # To create additional roles in postgres see `$ createuser --help`.
